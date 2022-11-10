@@ -1,2 +1,6 @@
-# enpm809y_fall2022
-ROS packages for ENPM809Y Fall2022
+# first_package
+Package used in L10 ENPM809Y Fall2022
+
+
+- `cd ~/ros2_ws`
+- `rosdep install --from-paths ./src --ignore-packages-from-source -y`

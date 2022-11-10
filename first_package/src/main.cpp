@@ -6,9 +6,11 @@ int main(int argc, char *argv[])
 {
     // init
     rclcpp::init(argc, argv);
-    // node
+    // instantiate a Node
     auto node = std::make_shared<rclcpp::Node>("hello");
+    // do something with the Node
     RCLCPP_INFO(node->get_logger(), "Hello");
+    // spin the Node
     // rclcpp::spin(node);
     // shutdown
     rclcpp::shutdown();

@@ -8,31 +8,24 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-# find_package(geometry_msgs REQUIRED)
-# find_package(nav_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+
+include_directories(include/first_package)
 
 
-#----- Hello class: start -----
-add_executable(hello src/main.cpp)
-ament_target_dependencies(hello rclcpp)
-
-install(TARGETS 
-hello
-DESTINATION lib/${PROJECT_NAME})
-#----- Hello class: end -----
-
-
-#----- Robot class: start -----
-# include_directories(include/first_package)
-
-# add_executable(bot_pub_sub src/main.cpp src/robot.cpp)
-# ament_target_dependencies(bot_pub_sub rclcpp geometry_msgs nav_msgs)
+# add_executable(hello src/hello.cpp src/main.cpp)
+# ament_target_dependencies(hello rclcpp)
 
 # install(TARGETS 
-# bot_pub_sub
+# hello
 # DESTINATION lib/${PROJECT_NAME})
-#----- Robot class: end -----
 
+add_executable(bot_pub_sub src/robot.cpp src/main.cpp)
+ament_target_dependencies(bot_pub_sub rclcpp geometry_msgs nav_msgs)
 
+install(TARGETS 
+bot_pub_sub
+DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

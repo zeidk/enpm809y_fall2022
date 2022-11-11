@@ -9,13 +9,14 @@ class Robot : public rclcpp::Node
 public:
     Robot(std::string node_name) : Node(node_name)
     {
-        m_timer = this->create_wall_timer(std::chrono::seconds(1),
-                                          std::bind(&Robot::timer_callback, this));
         // parameters
         this->declare_parameter("publisher_frequency", 1.0);
         m_publisher_frequency = this->get_parameter("publisher_frequency").as_double();
         m_parameters_handle = this->add_on_set_parameters_callback(
             std::bind(&Robot::parameters_callback, this, std::placeholders::_1));
+
+        m_timer = this->create_wall_timer(std::chrono::milliseconds((int)(1000.0 / m_publisher_frequency)),
+                                          std::bind(&Robot::timer_callback, this));
 
         // publisher
         m_msg = geometry_msgs::msg::Twist();

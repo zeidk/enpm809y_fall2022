@@ -2,6 +2,7 @@
 #include <geometry_msgs/msg/twist.hpp>
 #include <nav_msgs/msg/odometry.hpp>
 #include "rcl_interfaces/msg/set_parameters_result.hpp"
+#include <string>
 
 // timer
 class Robot : public rclcpp::Node
@@ -11,12 +12,16 @@ public:
     {
         // parameters
         this->declare_parameter("publisher_frequency", 1.0);
+        this->declare_parameter("robot_name", "my_robot");
         m_publisher_frequency = this->get_parameter("publisher_frequency").as_double();
+        m_robot_name = this->get_parameter("robot_name").as_string();
         m_parameters_handle = this->add_on_set_parameters_callback(
             std::bind(&Robot::parameters_callback, this, std::placeholders::_1));
+        
 
         m_timer = this->create_wall_timer(std::chrono::milliseconds((int)(1000.0 / m_publisher_frequency)),
                                           std::bind(&Robot::timer_callback, this));
+       
 
         // publisher
         m_msg = geometry_msgs::msg::Twist();
@@ -34,6 +39,7 @@ private:
     OnSetParametersCallbackHandle::SharedPtr m_parameters_handle;
     geometry_msgs::msg::Twist m_msg;
     double m_publisher_frequency;
+    std::string m_robot_name;
     // methods
     void timer_callback();
     void odom_callback(const nav_msgs::msg::Odometry::SharedPtr msg);

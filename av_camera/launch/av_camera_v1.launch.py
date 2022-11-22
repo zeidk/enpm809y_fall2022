@@ -11,7 +11,11 @@ from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
 
+
 def generate_launch_description():
+    executable = 'av_camera'
+    package_name = 'av_camera'
+    
     return LaunchDescription([
         # camera1 node
         Node(

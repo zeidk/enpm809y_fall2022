@@ -11,8 +11,10 @@ void Robot::timer_callback()
 
 void Robot::odom_callback(const nav_msgs::msg::Odometry::SharedPtr msg)
 {
-    RCLCPP_INFO(this->get_logger(), "x position: %f", msg->pose.pose.position.x);
-    RCLCPP_INFO(this->get_logger(), "y position: %f", msg->pose.pose.position.y);
+    
+    // RCLCPP_INFO(this->get_logger(), "x position: %f", msg->pose.pose.position.x);
+    // RCLCPP_INFO(this->get_logger(), "y position: %f", msg->pose.pose.position.y);
+    // RCLCPP_INFO_STREAM(this->get_logger(), "y position: " << msg->pose.pose.position.y);
 }
 
 /**
@@ -39,6 +41,7 @@ rcl_interfaces::msg::SetParametersResult Robot::parameters_callback(
             m_robot_name = parameter.as_string();
             RCLCPP_INFO(this->get_logger(), ("Parameter 'm_robot_name' changed: " + m_robot_name).c_str());
         }
+
     }
 
     return result;

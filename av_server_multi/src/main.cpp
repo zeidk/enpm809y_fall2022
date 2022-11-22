@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
                                                      // They will still run on different threads
                                                      // One Node. 4 callbacks. 4 Threads.
     executor.add_node(server_multi_node);
+
     executor.spin();
     // shutdown
     rclcpp::shutdown();
